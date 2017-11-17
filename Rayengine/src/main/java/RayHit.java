@@ -1,3 +1,6 @@
+import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Point3D;
+
 import java.awt.*;
 
 /**
@@ -5,15 +8,21 @@ import java.awt.*;
  */
 public class RayHit {
 
+    Point3D hitPos;
+    Vec3d normVec;
     double t;
     boolean isHit = false;
     Color color = Color.cyan;
 
-    RayHit(double t, Color c) {
+    RayHit(double t, Color c, Point3D hitPos, Vec3d normVec) {
         this.t = t;
         isHit = true;
 
         setColor(c);
+
+        this.hitPos = hitPos;
+
+        this.normVec = normVec;
     }
 
     RayHit() {
@@ -33,5 +42,13 @@ public class RayHit {
     public Color getColor(){return this.color;}
     public void setColor(Color c){
         this.color = c;
+    }
+
+    public Point3D getHitPos(){
+        return this.hitPos;
+    }
+
+    public Vec3d getNormVec(){
+        return this.normVec;
     }
 }

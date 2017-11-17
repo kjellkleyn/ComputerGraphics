@@ -24,7 +24,7 @@ public class GFXPanel extends JPanel{
     private void doDrawing(Graphics g) {
 
         Camera camera = new Camera();
-        //camera.set(new Point3D(10, 5, 10), new Point3D(0, 0, 0), new Vec3d(0,1,0));
+        camera.set(new Point3D(-30, 50, 3), new Point3D(0, 1.5, 0), new Vec3d(0,1,0));
         //camera.set(new Point3D(-10, 0, 0), new Point3D(0, 0, 0), new Vec3d(0,1, 0));
 
         Graphics2D g2d = (Graphics2D) g;
@@ -32,24 +32,31 @@ public class GFXPanel extends JPanel{
         g2d.drawString("Java 2D", 50, 50);
         //Cube testPlane = new Cube(0, 0, 0, 1, new Color(0, 0, 0));
 
-        Object objects[] = {new Sphere(-1,-1,-1,1,new Color(151,8,8)), new Cube(1, 1, 1, 1, new Color(0, 0, 0)),new Sphere(-1,0,0,1,new Color(52,86,149)),new Cube(-1, 0, 1, 1, new Color(0, 0, 0))};
+        //Object objects[] = {new Cube(3, 1, 1, 1, new Color(0, 0, 0)),new Cube(-1, 1, 1, 1, new Color(0, 0, 0))};
+        //Object objects[] = {new Sphere(10,1,1,1,Color.ORANGE),new Sphere(10,-1,1,1,Color.GREEN),new Sphere(10,-4,1,1,Color.BLUE),new Sphere(10,-1,4,4,Color.RED)};
+        Object objects[] = {new Cube(0,0,0,1,Color.GREEN),new Cube(1.5,0,0,1,Color.ORANGE),new Sphere(3,3,3,1,Color.cyan),new Sphere(3,3,-3,1,Color.ORANGE),new Floor(-3,0,0,-1,Color.RED)};
 
        // x += 0.1;
         //System.out.println(x);
         //
 
+        /*
+        double lightX = 10 * Math.cos(x);
+        double lightZ = 10 * Math.sin(x);
+        double ligthY = 5 * Math.sin(x);
+        */
+
+        Light light = new Light(5,5,0);
 
         x = x + 0.1;
         //System.out.println(x);
 
+/*
 
-        double CameraX = 10 * Math.cos(x);
-        double CameraZ = 10 * Math.sin(x);
-        double CameraY = 5 * Math.sin(x);
-
+*/
         //System.out.println("x = " + x + " Cx " + CameraX + " Cz " + CameraZ);
 
-        camera.set(new Point3D(CameraX, CameraY, CameraZ), new Point3D(0,0,0), new Vec3d(0,1, 0));
+   //     camera.set(new Point3D(CameraX, CameraY, CameraZ), new Point3D(0,0,0), new Vec3d(0,1, 0));
 
         double closeHit = -1;
         for(int i=0;i<sizex;i++) {
@@ -57,6 +64,7 @@ public class GFXPanel extends JPanel{
 
                 Ray ray = camera.getRay(i,sizey - j);
                 closeHit = -1;
+                RayHit hitPoint = new RayHit();
 
                 for (int obj = 0; obj < objects.length; obj++) {
 
@@ -66,11 +74,18 @@ public class GFXPanel extends JPanel{
                         //System.out.println("object " + obj + " t = " + hit.t + " prevT = " + closeHit);
                         if(((closeHit < 0) || (hit.t < closeHit))) {
                             closeHit = hit.t;
-                            g2d.setColor(hit.getColor());
-                            g2d.drawLine(i,j,i,j);
+                            hitPoint = hit;
                         }
                     }
                 }
+
+
+                if(hitPoint.getIsHit()){
+                    g2d.setColor(light.getColor(hitPoint.getColor(),hitPoint.getNormVec(),hitPoint.getHitPos(),camera.getEye()));
+                    g2d.drawLine(i,j,i,j);
+                }
+
+
             }
         }
 

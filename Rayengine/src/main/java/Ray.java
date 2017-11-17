@@ -45,6 +45,8 @@ public class Ray {
     void TranslateRay(TransformationMatrix3D scalingMatrix, TransformationMatrix3D translationMatrix){
 
         Matrix newStart = translationMatrix.imatrix.times(startMatrix);
+
+        //newStart = scalingMatrix.imatrix.times(newStart);
         //translationMatrix.printInverseMatrix();
         //System.out.println("x " + newStart.get(0,0) + " y " + newStart.get(1,0) + " z " + newStart.get(2,0));
 

@@ -23,11 +23,12 @@ public class Canvas extends JFrame
         Canvas c = new Canvas();
         c.setVisible(true);
 
+/*
         while(true){
             c.repaint();
             c.setVisible(true);
         }
-
+*/
 
 
     }
