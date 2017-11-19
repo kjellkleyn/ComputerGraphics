@@ -52,5 +52,13 @@ public class Ray {
 
         tempStart = new Point3D(newStart.get(0,0),newStart.get(1,0),newStart.get(2,0));
         tempDir = new Vec3d(dir.x,dir.y,dir.z);
+ /*
+        tempStart = start;
+        tempDir = dir;
+*/
+    }
+
+    void PrintRay(){
+        System.out.println("Ray start = " + start + " Ray dir = " + dir);
     }
 }

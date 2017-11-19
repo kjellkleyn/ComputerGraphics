@@ -17,7 +17,7 @@ public class Cube extends Object {
         color = c;
 
         for(int i = 0;i<6;i++){
-            //planes[i] = new Plane(i,colors[i]);
+            //planes[i] = new Plane(i,colors[i],size);
             planes[i] = new Plane(i,color,size);
 
         }
@@ -31,7 +31,7 @@ public class Cube extends Object {
         RayHit hit = new RayHit();
         boolean firstHit = true;
 
-        ray.TranslateRay(scalingMatrix,translationMatrix);
+            ray.TranslateRay(scalingMatrix, translationMatrix);
 
         for(int i = 0;i<6;i++){
             RayHit tempHit = planes[i].Hit(ray);

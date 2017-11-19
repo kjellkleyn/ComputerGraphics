@@ -12,7 +12,7 @@ public class Light {
     double brightness = 1;
     double diffuseReflect = 0.5;
     double specularReflect = 0.5;
-    double Ia = 0.2;
+    double Ia = 0.4;
 
 
     Light(double x,double y,double z){
@@ -20,7 +20,7 @@ public class Light {
 
     }
 
-    Color getColor(Color color, Vec3d m, Point3D hitPoint, Point3D viewPoint){
+    Color getColor(Color color, Vec3d m, Point3D hitPoint, Point3D viewPoint, boolean shadow){
 
         Vec3d s = new Vec3d(pos.getX()-hitPoint.getX(),pos.getY()-hitPoint.getY(),pos.getZ()-hitPoint.getZ());
         s.normalize();
@@ -42,9 +42,20 @@ public class Light {
             Isp = 0;
         }
 
-        double Ir = Ia + Id + Isp;
-        double Ig = Ia + Id + Isp;
-        double Ib = Ia + Id + Isp;
+        double Ir;
+        double Ig;
+        double Ib;
+
+        if(shadow){
+            Ir = Ia;
+            Ig = Ia;
+            Ib = Ia;
+        }else{
+            Ir = Ia + Id + Isp;
+            Ig = Ia + Id + Isp;
+            Ib = Ia + Id + Isp;
+        }
+
 
         double Red = color.getRed();
         Red = Red*Ir;
@@ -76,11 +87,44 @@ public class Light {
     return newColor;
     }
 
-    void calcDirS(Point3D hitPoint){
+    boolean checkShadow(Point3D hitPoint,Object[] objects, int hitObj){
 
 
 
+        Vec3d hitPointDir = new Vec3d(pos.getX()-hitPoint.getX(),pos.getY()-hitPoint.getY(),pos.getZ()-hitPoint.getZ());
+        double distance = hitPointDir.length();
+        hitPointDir.normalize();
+
+        Ray ray = new Ray();
+        ray.setStart(hitPoint);
+        ray.setDir(hitPointDir);
+        RayHit hit;
+
+
+
+
+        for (int obj = 0; obj < objects.length; obj++) {
+
+            if(hitObj != obj){
+                hit = objects[obj].Hit(ray);
+            }else{
+                hit = new RayHit();
+            }
+/*
+            if(hitObj == 0){
+                System.out.println("hitpoint = " + hitPoint);
+                System.out.println("distance " + distance + " hit " + hit.t);
+            }
+*/
+
+
+            if(hit.getIsHit() && (hit.t < distance) && (hit.t > 0)){
+                System.out.println("distance " + distance + " hit " + hit.t);
+                return true;
+            }
+        }
+
+        return false;
     }
-
 
 }
