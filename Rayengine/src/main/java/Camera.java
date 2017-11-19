@@ -100,4 +100,8 @@ public class Camera {
         return ray;
     }
 
+    public Point3D getEye(){
+        return this.eye;
+    }
+
 }

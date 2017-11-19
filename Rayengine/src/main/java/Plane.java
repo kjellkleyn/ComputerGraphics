@@ -1,3 +1,4 @@
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.awt.*;
@@ -13,8 +14,10 @@ public class Plane {
     Point3D D;
     int number;
     Color color;
+    double size;
 
-    Plane(int number,Color c){
+    Plane(int number,Color c, double size){
+        this.size = size;
         this.A = (number == 2)? 1.0 : 0.0; // YZ
         this.B = (number == 0)? 1.0 : 0.0; // XZ
         this.C = (number == 1)? 1.0 : 0.0; // XY
@@ -41,17 +44,17 @@ public class Plane {
             case 3: this.A = 0;
                     this.B = 0;
                     this.C = 1;
-                    this.D = new Point3D(0,0,-1);
+                    this.D = new Point3D(0,0,-this.size);
                     break;
             case 4: this.A = 0;
                     this.B = 1;
                     this.C = 0;
-                    this.D = new Point3D(0,-1,0);
+                    this.D = new Point3D(0,-this.size,0);
                     break;
             case 5: this.A = 1;
                     this.B = 0;
                     this.C = 0;
-                    this.D = new Point3D(-1,0,0);
+                    this.D = new Point3D(-this.size,0,0);
                     break;
 
         }
@@ -63,8 +66,8 @@ public class Plane {
         //System.out.println("Plane number " + number);
         //System.out.println("A = " + A  + " B = " + B + " C = " + C + "D = " + D.getX() + "," + D.getY() + "," + D.getZ());
 
-        double teller = -( A * ray.tempStart.getX() + this.D.getX()) - ( B * ray.tempStart.getY() + this.D.getY()) - ( C * ray.tempStart.getZ() + this.D.getZ());
-        double noemer =  ( A * ray.tempDir.x ) + ( B * ray.tempDir.y ) + ( C * ray.tempDir.z);
+        double teller = -(A * ray.tempStart.getX() + this.D.getX()) - (B * ray.tempStart.getY() + this.D.getY()) - (C * ray.tempStart.getZ() + this.D.getZ());
+        double noemer = (A * ray.tempDir.x) + (B * ray.tempDir.y) + (C * ray.tempDir.z);
         double t = teller / noemer;
 
         //System.out.println("t = " + t);
@@ -76,27 +79,35 @@ public class Plane {
         //System.out.println("Plane hit point________________-");
         //System.out.println("X = " + hitPoint_x + " Y = " + hitPoint_y + " Z = " + hitPoint_z);
 
-        if(number == 0 || number == 3) {
-            if ((hitPoint_x <= 1 && hitPoint_x >= 0) && (hitPoint_y <= 1 && hitPoint_y >= 0))
-                return new RayHit(t,color);
-            else
-                return new RayHit();
-        } else if(number == 1 || number == 4) {
-            if ((hitPoint_x <= 1 && hitPoint_x >= 0) && (hitPoint_z <= 1 && hitPoint_z >= 0))
-                return new RayHit(t,color);
-            else
-                return new RayHit();
-        } else {
-            if (((hitPoint_y <= 1) && (hitPoint_y >= 0)) && ((hitPoint_z <= 1) && (hitPoint_z >= 0))) {
 
-                return new RayHit(t,color);
+        if (size > 0) {
+            if (number == 0 || number == 3) {
+                if ((hitPoint_x <= this.size && hitPoint_x >= 0) && (hitPoint_y <= this.size && hitPoint_y >= 0))
+                    return new RayHit(t, color, new Point3D(hitPoint_x, hitPoint_y, hitPoint_z), new Vec3d(A, B, C));
+                else
+                    return new RayHit();
+            } else if (number == 1 || number == 4) {
+                if ((hitPoint_x <= this.size && hitPoint_x >= 0) && (hitPoint_z <= this.size && hitPoint_z >= 0))
+                    return new RayHit(t, color, new Point3D(hitPoint_x, hitPoint_y, hitPoint_z), new Vec3d(A, B, C));
+                else
+                    return new RayHit();
+            } else {
+                if (((hitPoint_y <= this.size) && (hitPoint_y >= 0)) && ((hitPoint_z <= this.size) && (hitPoint_z >= 0))) {
+
+                    return new RayHit(t, color, new Point3D(hitPoint_x, hitPoint_y, hitPoint_z), new Vec3d(A, B, C));
+                } else {
+                    return new RayHit();
+                }
+
             }
-            else{
+        }else{
+            if(t > 0) {
+
+                return new RayHit(t, color, new Point3D(hitPoint_x, hitPoint_y, hitPoint_z), new Vec3d(A, B, C));
+            }else{
                 return new RayHit();
             }
-
         }
-
     }
 
 /*
