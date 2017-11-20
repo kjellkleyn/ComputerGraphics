@@ -87,7 +87,6 @@ public class Plane {
         //System.out.println("X = " + hitPoint_x + " Y = " + hitPoint_y + " Z = " + hitPoint_z);
 
 
-
         Vec3d eyeVector = new Vec3d(ray.start.getX()-hitPoint_x,ray.start.getY()-hitPoint_y,ray.start.getZ()-hitPoint_z);
         Vec3d m = new Vec3d(A,B,C);
 
