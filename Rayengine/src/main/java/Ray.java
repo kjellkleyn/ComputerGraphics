@@ -13,6 +13,7 @@ public class Ray {
     Vec3d tempDir;
     Matrix startMatrix;
     Matrix dirMatrix;
+    Point3D hitPoint;
 
     void setStart(Point3D p){
         start = new Point3D(p.getX(),p.getY(),p.getZ());
@@ -45,10 +46,7 @@ public class Ray {
     void TranslateRay(TransformationMatrix3D scalingMatrix, TransformationMatrix3D translationMatrix){
 
         Matrix newStart = translationMatrix.imatrix.times(startMatrix);
-
-        //newStart = scalingMatrix.imatrix.times(newStart);
-        //translationMatrix.printInverseMatrix();
-        //System.out.println("x " + newStart.get(0,0) + " y " + newStart.get(1,0) + " z " + newStart.get(2,0));
+        newStart  = scalingMatrix.imatrix.times(newStart);
 
         tempStart = new Point3D(newStart.get(0,0),newStart.get(1,0),newStart.get(2,0));
         tempDir = new Vec3d(dir.x,dir.y,dir.z);
