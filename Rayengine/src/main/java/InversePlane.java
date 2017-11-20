@@ -1,3 +1,6 @@
+/**
+ * Created by kjell on 20/11/2017.
+ */
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -6,7 +9,7 @@ import java.awt.*;
 /**
  * Created by kjell on 03/11/2017.
  */
-public class Plane {
+public class InversePlane {
 
     double A;
     double B;
@@ -16,7 +19,7 @@ public class Plane {
     Color color;
     double size;
 
-    Plane(int number,Color c, double size){
+    InversePlane(int number,Color c, double size){
         this.size = size;
         /*
         this.A = (number == 2)? 1.0 : 0.0; // YZ
@@ -29,35 +32,35 @@ public class Plane {
 
         switch(number){
             case 0: this.A = 0;
-                    this.B = 0;
-                    this.C = 1;
-                    this.D = new Point3D(0,0,0);
-                    break;
+                this.B = 0;
+                this.C = -1;
+                this.D = new Point3D(0,0,0);
+                break;
             case 1: this.A = 0;
-                    this.B = 1;
-                    this.C = 0;
-                    this.D = new Point3D(0,0,0);
-                    break;
-            case 2: this.A = 1;
-                    this.B = 0;
-                    this.C = 0;
-                    this.D = new Point3D(0,0,0);
-                    break;
+                this.B = -1;
+                this.C = 0;
+                this.D = new Point3D(0,0,0);
+                break;
+            case 2: this.A = -1;
+                this.B = 0;
+                this.C = 0;
+                this.D = new Point3D(0,0,0);
+                break;
             case 3: this.A = 0;
-                    this.B = 0;
-                    this.C = 1;
-                    this.D = new Point3D(0,0,-this.size);
-                    break;
+                this.B = 0;
+                this.C = -1;
+                this.D = new Point3D(0,0,-this.size);
+                break;
             case 4: this.A = 0;
-                    this.B = 1;
-                    this.C = 0;
-                    this.D = new Point3D(0,-this.size,0);
-                    break;
-            case 5: this.A = 1;
-                    this.B = 0;
-                    this.C = 0;
-                    this.D = new Point3D(-this.size,0,0);
-                    break;
+                this.B = -1;
+                this.C = 0;
+                this.D = new Point3D(0,-this.size,0);
+                break;
+            case 5: this.A = -1;
+                this.B = 0;
+                this.C = 0;
+                this.D = new Point3D(-this.size,0,0);
+                break;
 
         }
 
@@ -85,7 +88,6 @@ public class Plane {
 
         //System.out.println("Plane hit point________________-");
         //System.out.println("X = " + hitPoint_x + " Y = " + hitPoint_y + " Z = " + hitPoint_z);
-
 
 
         Vec3d eyeVector = new Vec3d(ray.start.getX()-hitPoint_x,ray.start.getY()-hitPoint_y,ray.start.getZ()-hitPoint_z);
@@ -188,3 +190,4 @@ public class Plane {
     */
 
 }
+

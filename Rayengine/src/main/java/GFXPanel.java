@@ -24,7 +24,7 @@ public class GFXPanel extends JPanel{
     private void doDrawing(Graphics g) {
 
         Camera camera = new Camera();
-        camera.set(new Point3D(-10, 10, 20), new Point3D(0, 0, 0), new Vec3d(0,1,0));
+        camera.set(new Point3D(10, 10, 10), new Point3D(5, 5, 5), new Vec3d(0,1,0));
         //camera.set(new Point3D(-10, 0, 0), new Point3D(0, 0, 0), new Vec3d(0,1, 0));
 
         Graphics2D g2d = (Graphics2D) g;
@@ -34,12 +34,12 @@ public class GFXPanel extends JPanel{
 
         //Object objects[] = {new Cube(3, 1, 1, 1, new Color(0, 0, 0)),new Cube(-1, 1, 1, 1, new Color(0, 0, 0))};
         //Object objects[] = {new Sphere(10,1,1,1,Color.ORANGE),new Sphere(10,-1,1,1,Color.GREEN),new Sphere(10,-4,1,1,Color.BLUE),new Sphere(10,-1,4,4,Color.RED)};
-        Object objects[] = {new Cube(0,2,0,1,Color.GREEN),new Cube(1.5,0,0,1,Color.ORANGE),new Sphere(3,3,3,1,Color.cyan),new Sphere(3,3,-3,1,Color.ORANGE),new Floor(-3,0,0,-1,Color.RED)};
+        //Object objects[] = {new Cube(0,2,0,1,Color.GREEN),new Cube(1.5,0,0,1,Color.ORANGE)/*,new Sphere(3,3,3,1,Color.cyan)*/,new Sphere(3,3,-3,1,Color.ORANGE),new Floor(-3,0,0,-1,Color.RED)};
         //Object objects[] = {new Cube(0,0,0,1,Color.GREEN),new Floor(0,0,0,-1,Color.RED)};
         //Object objects[] = {new Sphere(0,5,0,1,Color.cyan),new Floor(0,0,0,-1,Color.RED)};
-        //Object objects[] = {new Cube(0,0,0,20,Color.GREEN)};
+        Object objects[] = {new Room(0,0,0,20,Color.GREEN)/*,new Sphere(3,3,4,1,Color.MAGENTA),new Sphere(5,4,4,1,Color.BLUE)*/};
 
-        Light light = new Light(20,10,3);
+        Light light = new Light(10,2,5);
        // x += 0.1;
         //System.out.println(x);
         //
