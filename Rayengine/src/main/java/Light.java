@@ -89,8 +89,6 @@ public class Light {
 
     boolean checkShadow(Point3D hitPoint,Object[] objects, int hitObj){
 
-
-
         Vec3d hitPointDir = new Vec3d(pos.getX()-hitPoint.getX(),pos.getY()-hitPoint.getY(),pos.getZ()-hitPoint.getZ());
         double distance = hitPointDir.length();
         hitPointDir.normalize();
@@ -98,9 +96,7 @@ public class Light {
         Ray ray = new Ray();
         ray.setStart(hitPoint);
         ray.setDir(hitPointDir);
-        RayHit hit;
-
-
+        RayHit hit = new RayHit();
 
 
         for (int obj = 0; obj < objects.length; obj++) {
@@ -108,18 +104,18 @@ public class Light {
             if(hitObj != obj){
                 hit = objects[obj].Hit(ray);
             }else{
-                hit = new RayHit();
+
             }
-/*
+
+            /*
             if(hitObj == 0){
                 System.out.println("hitpoint = " + hitPoint);
                 System.out.println("distance " + distance + " hit " + hit.t);
             }
-*/
-
+            */
 
             if(hit.getIsHit() && (hit.t < distance) && (hit.t > 0)){
-                System.out.println("distance " + distance + " hit " + hit.t);
+                //System.out.println("distance " + distance + " hit " + hit.t);
                 return true;
             }
         }

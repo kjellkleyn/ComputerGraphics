@@ -1,3 +1,4 @@
+import Jama.Matrix;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 public class RayHit {
 
     Point3D hitPos;
+    Point3D transHitPos;
     Vec3d normVec;
     double t;
     boolean isHit = false;
@@ -30,6 +32,16 @@ public class RayHit {
         this.t = -1;
     }
 
+    void InverTranslateRay(TransformationMatrix3D scalingMatrix, TransformationMatrix3D translationMatrix){
+
+        double [][] startArray = {{hitPos.getX()},{hitPos.getY()},{hitPos.getZ()},{1}};
+        Matrix startMatrix = new Matrix(startArray);
+
+        Matrix newStart = translationMatrix.matrix.times(startMatrix);
+
+        transHitPos = new Point3D(newStart.get(0,0),newStart.get(1,0),newStart.get(2,0));
+
+    }
 
     public boolean getIsHit() {
         return isHit;
@@ -45,7 +57,7 @@ public class RayHit {
     }
 
     public Point3D getHitPos(){
-        return this.hitPos;
+        return this.transHitPos;
     }
 
     public Vec3d getNormVec(){

@@ -19,10 +19,13 @@ public class Sphere extends Object {
 
     RayHit Hit(Ray ray) {
 
+        ray.TranslateRay(this.scalingMatrix,this.translationMatrix);
+
         double t;
-        Vec3d temp = new Vec3d(ray.start.getX() - center.getX(), ray.start.getY() - center.getY(), ray.start.getZ() - center.getZ()); //ray.start.subtract(center);
-        double a = ray.dir.dot(ray.dir);
-        double b = 2.0 * temp.dot(ray.dir);
+        //Vec3d temp = new Vec3d(ray.start.getX() - center.getX(), ray.start.getY() - center.getY(), ray.start.getZ() - center.getZ()); //ray.start.subtract(center);
+        Vec3d temp = new Vec3d(ray.tempStart.getX(), ray.tempStart.getY(), ray.tempStart.getZ()); //ray.start.subtract(center);
+        double a = ray.tempDir.dot(ray.tempDir);
+        double b = 2.0 * temp.dot(ray.tempDir);
         double c = temp.dot(temp) - (1 * 1);
         double disc = b * b - 4.0 * a * c;
 
@@ -34,12 +37,9 @@ public class Sphere extends Object {
             t = (-b - e) / denom;    // smaller root
 
             if (t > 0.00001) {
-                //Ray tempRay = ray;
-                //tempRay.dir.mul(t);
-                //temp.add(new Vec3d(tempRay.dir.x / radius, tempRay.dir.y / radius, tempRay.dir.z / radius));
-                //Point3D localHitPoint = new Point3D(ray.start.getX() + ray.dir.x, ray.start.getY() + ray.dir.y, ray.start.getZ() + ray.dir.z);
-                Point3D hitPos = new Point3D(ray.start.getX() + t * ray.dir.x,ray.start.getY() + t * ray.dir.y,ray.start.getZ() + t * ray.dir.z);
-                Vec3d normVec = new Vec3d(hitPos.getX()-center.getX(),hitPos.getY()-center.getY(),hitPos.getZ()-center.getZ());
+                Point3D hitPos = new Point3D(ray.tempStart.getX() + t * ray.tempDir.x,ray.tempStart.getY() + t * ray.tempDir.y,ray.tempStart.getZ() + t * ray.tempDir.z);
+                //Vec3d normVec = new Vec3d(hitPos.getX()-center.getX(),hitPos.getY()-center.getY(),hitPos.getZ()-center.getZ());
+                Vec3d normVec = new Vec3d(hitPos.getX(),hitPos.getY(),hitPos.getZ());
                 normVec.normalize();
                 return new RayHit(t,color,hitPos,normVec);
             }
@@ -47,12 +47,9 @@ public class Sphere extends Object {
             t = (-b + e) / denom;    // larger root
 
             if (t > 0.00001) {
-                //Ray tempRay = ray;
-                //tempRay.dir.mul(t);
-                //temp.add(new Vec3d(tempRay.dir.x / radius, tempRay.dir.y / radius, tempRay.dir.z / radius));
-                //Point3D localHitPoint = new Point3D(ray.start.getX() + ray.dir.x, ray.start.getY() + ray.dir.y, ray.start.getZ() + ray.dir.z);
-                Point3D hitPos = new Point3D(ray.start.getX() + t * ray.dir.x,ray.start.getY() + t * ray.dir.y,ray.start.getZ() + t * ray.dir.z);
-                Vec3d normVec = new Vec3d(hitPos.getX()-center.getX(),hitPos.getY()-center.getY(),hitPos.getZ()-center.getZ());
+                Point3D hitPos = new Point3D(ray.tempStart.getX() + t * ray.tempDir.x,ray.tempStart.getY() + t * ray.tempDir.y,ray.tempStart.getZ() + t * ray.tempDir.z);
+                //Vec3d normVec = new Vec3d(hitPos.getX()-center.getX(),hitPos.getY()-center.getY(),hitPos.getZ()-center.getZ());
+                Vec3d normVec = new Vec3d(hitPos.getX(),hitPos.getY(),hitPos.getZ());
                 normVec.normalize();
                 return new RayHit(t,color,hitPos,normVec);
             }

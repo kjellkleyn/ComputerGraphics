@@ -77,7 +77,7 @@ public class Plane {
         double noemer = (A * ray.tempDir.x) + (B * ray.tempDir.y) + (C * ray.tempDir.z);
         double t = teller / noemer;
 
-        System.out.println("t = " + t);
+        //System.out.println("t = " + t);
         //System.out.println("_______________________________________");
         double hitPoint_x = ray.tempStart.getX() + (t * ray.tempDir.x);
         double hitPoint_y = ray.tempStart.getY() + (t * ray.tempDir.y);
