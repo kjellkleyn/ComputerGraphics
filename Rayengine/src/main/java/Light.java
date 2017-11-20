@@ -10,8 +10,8 @@ public class Light {
 
     Point3D pos;
     double brightness = 1;
-    double diffuseReflect = 0.2;
-    double specularReflect = 0.2;
+    double diffuseReflect = 0.5;
+    double specularReflect = 0.5;
     double Ia = 0.4;
 
 
@@ -23,7 +23,7 @@ public class Light {
     Color getColor(Color color, Vec3d m, Point3D hitPoint, Point3D viewPoint, boolean shadow){
 
         Vec3d s = new Vec3d(pos.getX()-hitPoint.getX(),pos.getY()-hitPoint.getY(),pos.getZ()-hitPoint.getZ());
-
+        s.normalize();
         Vec3d v = new Vec3d(viewPoint.getX()-hitPoint.getX(),viewPoint.getY()-hitPoint.getY(),viewPoint.getZ()-hitPoint.getZ());
         v.normalize();
         Vec3d r = new Vec3d((-s.x + 2 * ((s.dot(m))/ (m.length() * m.length())) * m.x),(-s.y + 2 * ((s.dot(m))/ (m.length() * m.length())) * m.y),(-s.z + 2 * ((s.dot(m))/ (m.length() * m.length())) * m.z));

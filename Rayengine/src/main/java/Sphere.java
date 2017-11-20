@@ -13,7 +13,7 @@ public class Sphere extends Object {
     Sphere(double x,double y,double z,double size , Color c){
         super(x,y,z,size,c);
         this.center = new Point3D(x, y, z);
-        this.radius = 1;
+        this.radius = size;
 
     }
 

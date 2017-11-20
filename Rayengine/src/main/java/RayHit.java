@@ -38,7 +38,6 @@ public class RayHit {
         Matrix startMatrix = new Matrix(startArray);
 
         Matrix newStart = translationMatrix.matrix.times(startMatrix);
-        newStart = scalingMatrix.matrix.times(newStart);
 
         transHitPos = new Point3D(newStart.get(0,0),newStart.get(1,0),newStart.get(2,0));
 
@@ -59,18 +58,6 @@ public class RayHit {
 
     public Point3D getHitPos(){
         return this.transHitPos;
-    }
-
-    void calcHitDist(Ray ray){
-
-        double tx = (ray.dir.x != 0)?(transHitPos.getX() - ray.start.getX()) / ray.dir.x : 0;
-        double ty = (ray.dir.y != 0)?(transHitPos.getY() - ray.start.getY()) / ray.dir.y : 0;
-        double tz = (ray.dir.z != 0)?(transHitPos.getZ() - ray.start.getZ()) / ray.dir.z : 0;
-        if( ray.dir.x != 0 ) this.t = tx;
-        else if( ray.dir.y != 0 ) this.t = ty;
-        else this.t = tz;
-
-
     }
 
     public Vec3d getNormVec(){
