@@ -12,9 +12,9 @@ public class Canvas extends JFrame
     }
 
     private void initUI(){
-        add(new GFXPanel(800,800));
-        setTitle("3D Engine");
-        setSize(800,800);
+        add(new GFXPanel(1280,720));
+        setTitle("Kjell Kleyn raytracer");
+        setSize(1280,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -22,14 +22,6 @@ public class Canvas extends JFrame
     public static void main(String[] args) {
         Canvas c = new Canvas();
         c.setVisible(true);
-
-        while(true){
-            c.repaint();
-            c.setVisible(true);
-        }
-
-
-
     }
 
 

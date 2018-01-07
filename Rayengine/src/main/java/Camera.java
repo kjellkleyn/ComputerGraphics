@@ -9,7 +9,7 @@ public class Camera {
     private Point3D eye, look;
     private Vec3d up;
     private Vec3d u, v, n;
-    double viewAngle, aspect, nearDist, farDist;
+    double viewAngle, nearDist,aspect, farDist;
     double H,W;
     double nCols = 800;
     double nRows = 800;
@@ -18,12 +18,16 @@ public class Camera {
 
     }
 
-    public Camera(){
+    public Camera(int sizex, int sizey){
         this.nearDist = 1;
         this.viewAngle = Math.toRadians(30.00);
+        this.aspect = (double)sizex/(double)sizey;
+
+        this.nCols = sizex;
+        this.nRows = sizey;
 
         H = (nearDist * Math.tan(this.viewAngle)/2);
-        W = H;
+        W = this.aspect * H;
     }
 
     void set(Point3D eye, Point3D look, Vec3d up){
@@ -98,6 +102,10 @@ public class Camera {
 
 
         return ray;
+    }
+
+    public Point3D getEye(){
+        return this.eye;
     }
 
 }

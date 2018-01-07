@@ -9,19 +9,19 @@ import java.awt.*;
 public abstract class Object {
     private Point3D position;
     Point3D vector;
-    Color color;
     TransformationMatrix3D translationMatrix, scalingMatrix;
     private TransformationFactory transFact = new TransformationFactory();
     private double size;
+    Material material;
+
     public Object(){
         this.vector = new Point3D(0,0,0);
-        this.color = new Color(255, 134, 255);
         this.size = 1;
     }
 
-    public Object(double x,double y,double z,double size , Color c){
+    public Object(double x,double y,double z,double size, Material material){
         this.vector = new Point3D(x,y,z);
-        this.color = c;
+        this.material = material;
         this.size = size;
 
         translationMatrix = TransformationFactory.getTranslationMatrix(vector.getX(),vector.getY(),vector.getZ());
@@ -31,7 +31,7 @@ public abstract class Object {
     abstract RayHit Hit(Ray ray);
 
     public Color getColor(){
-        return this.color;
+        return this.material.color;
     }
 
 }
