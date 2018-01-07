@@ -44,8 +44,8 @@ public class Light {
 
                     RayHit temphit = objects[obj].Hit(reflectRay);
                     if(temphit.getIsHit()){
-                        if(((closeHit < 0) || (temphit.t1 < closeHit))) {
-                            closeHit = temphit.t1;
+                        if(((closeHit < 0) || (temphit.getT() < closeHit))) {
+                            closeHit = temphit.getT();
                             hit = temphit;
                             hitObject = obj;
                         }
@@ -97,8 +97,8 @@ public class Light {
 
                 RayHit temphit = objects[obj].Hit(reflectRay);
                 if(temphit.getIsHit()){
-                    if(((closeHit < 0) || (temphit.t1 < closeHit))) {
-                        closeHit = temphit.t1;
+                    if(((closeHit < 0) || (temphit.getT() < closeHit))) {
+                        closeHit = temphit.getT();
                         hit = temphit;
                         hitObject = obj;
                     }

@@ -48,7 +48,7 @@ public class GFXPanel extends JPanel{
 */
 
         Object objects[] = {
-                new Cube(38,7,8,1,new Material(new Color(31, 66, 59),0.4,0.25,0,0.5,1)),
+                new Sphere(38,7,8,1,new Material(new Color(31, 66, 59),0.4,0.25,0,0.5,1)),
                 new Cube(0,0,0,60,new Material(new Color(159, 159, 159),0.4,0.25,0.25,0,1)),
                 new Sphere(15,8,8,1, new Material(new Color(50, 180, 30),0.4,0.25,0.7,0,0.5)),
                 new Sphere(15,10,8,1,new Material(new Color(180, 75, 200),0.4,0.25,0.7,0,0.5)),
@@ -100,8 +100,8 @@ public class GFXPanel extends JPanel{
                     RayHit hit = objects[obj].Hit(ray);
 
                     if(hit.getIsHit()){
-                        if(((closeHit < 0) || (hit.t1 < closeHit))) {
-                            closeHit = hit.t1;
+                        if(((closeHit < 0) || (hit.getT() < closeHit))) {
+                            closeHit = hit.getT();
                             hitPoint = hit;
 
                             hitobject = obj;
