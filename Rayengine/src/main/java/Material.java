@@ -11,6 +11,7 @@ public class Material {
     double refraction = 0.5;
     double n = 0.5;
     Color color;
+    Color originalColor;
 
     Material(){
         color = Color.red;
@@ -20,6 +21,7 @@ public class Material {
 
     Material(Color c, double diff, double spec, double refl, double refr, double n){
         this.color = c;
+        this.originalColor = c;
         this.diffuseReflect = diff;
         this.specularReflect = spec;
         this.reflection = refl;

@@ -23,8 +23,6 @@ public class RayHit {
     boolean isHit = false;
     Material material1, material2;
 
-
-    //Deze was voor cube
     RayHit(double x, double y, double z, double t) {
         this.t = t;
 
@@ -51,8 +49,8 @@ public class RayHit {
     public void invertHitpoint( TransformationMatrix3D scaling, TransformationMatrix3D translation ) {
         double temp[][] = { {hitPoint.getX()}, {hitPoint.getY()}, {hitPoint.getZ()}, {1.0} };
         Matrix hitpointMatrix = new Matrix( temp );
-        Matrix result = scaling.getMatrix().times( hitpointMatrix );
-        result = translation.getMatrix().times( result );
+        Matrix result = scaling.matrix.times( hitpointMatrix );
+        result = translation.matrix.times( result );
 
         hitPoint = new Point3D( result.get(0,0 ),
                 result.get(1,0 ),
@@ -65,9 +63,14 @@ public class RayHit {
         double ty = (ray.getDir().y != 0)?(hitPoint.getY() - ray.start.getY()) / ray.getDir().y : 0;
         double tz = (ray.getDir().z != 0)?(hitPoint.getZ() - ray.start.getZ()) / ray.getDir().z : 0;
 
+        Vec3d newT = new Vec3d(hitPoint.getX() - ray.start.getX(),hitPoint.getY() - ray.start.getY(),hitPoint.getZ() - ray.start.getZ());
+        t = newT.length();
+
+        /*
         if( ray.getDir().x != 0 ) t = tx;
         else if( ray.getDir().y != 0 ) t = ty;
-        else t = tz;
+        else t = tz;*/
+
     }
 
 
@@ -107,7 +110,7 @@ public class RayHit {
     }
 
     public void setT2(double t2){
-
+        this.t2 = t2;
     }
 
     public void setHitPos1(Point3D hitPos1){
@@ -127,23 +130,17 @@ public class RayHit {
     }
 
     public void calculateT1(Ray ray){
-        double tx = (ray.getDir().x != 0)?(hitPos1.getX() - ray.start.getX()) / ray.getDir().x : 0;
-        double ty = (ray.getDir().y != 0)?(hitPos1.getY() - ray.start.getY()) / ray.getDir().y : 0;
-        double tz = (ray.getDir().z != 0)?(hitPos1.getZ() - ray.start.getZ()) / ray.getDir().z : 0;
 
-        if( ray.getDir().x != 0 ) t1 = tx;
-        else if( ray.getDir().y != 0 ) t1 = ty;
-        else t1 = tz;
+        Vec3d newT = new Vec3d(hitPos1.getX() - ray.start.getX(),hitPos1.getY() - ray.start.getY(),hitPos1.getZ() - ray.start.getZ());
+        t1 = newT.length();
+
     }
 
     public void calculateT2(Ray ray){
-        double tx = (ray.getDir().x != 0)?(hitPos2.getX() - ray.start.getX()) / ray.getDir().x : 0;
-        double ty = (ray.getDir().y != 0)?(hitPos2.getY() - ray.start.getY()) / ray.getDir().y : 0;
-        double tz = (ray.getDir().z != 0)?(hitPos2.getZ() - ray.start.getZ()) / ray.getDir().z : 0;
 
-        if( ray.getDir().x != 0 ) t1 = tx;
-        else if( ray.getDir().y != 0 ) t1 = ty;
-        else t2 = tz;
+        Vec3d newT = new Vec3d(hitPos2.getX() - ray.start.getX(),hitPos2.getY() - ray.start.getY(),hitPos2.getZ() - ray.start.getZ());
+        t2 = newT.length();
+
     }
 
     public void setHitPos1(Point3D hitP1, TransformationMatrix3D scaling, TransformationMatrix3D translate){

@@ -2,6 +2,7 @@ import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by kjell on 17/11/2017.
@@ -19,7 +20,7 @@ public class Light {
 
     }
 
-    Color getColor(RayHit hitPoint, Point3D viewPoint, boolean shadow,Object objects[], Ray ray,int depth, Material prevMaterial){
+    Color getColor(RayHit hitPoint, Point3D viewPoint, boolean shadow,ArrayList<Object> objects, Ray ray,int depth, Material prevMaterial){
 
         Color color = new Color(hitPoint.getMaterial().color.getRed(),hitPoint.getMaterial().color.getGreen(),hitPoint.getMaterial().color.getBlue());
 
@@ -40,9 +41,9 @@ public class Light {
             RayHit hit = new RayHit();
 
             int hitObject = -1;
-                for (int obj = 0; obj < objects.length; obj++) {
+                for (int obj = 0; obj < objects.size(); obj++) {
 
-                    RayHit temphit = objects[obj].Hit(reflectRay);
+                    RayHit temphit = objects.get(obj).Hit(reflectRay);
                     if(temphit.getIsHit()){
                         if(((closeHit < 0) || (temphit.getT() < closeHit))) {
                             closeHit = temphit.getT();
@@ -93,9 +94,9 @@ public class Light {
             RayHit hit = new RayHit();
 
             int hitObject = -1;
-            for (int obj = 0; obj < objects.length; obj++) {
+            for (int obj = 0; obj < objects.size(); obj++) {
 
-                RayHit temphit = objects[obj].Hit(reflectRay);
+                RayHit temphit = objects.get(obj).Hit(reflectRay);
                 if(temphit.getIsHit()){
                     if(((closeHit < 0) || (temphit.getT() < closeHit))) {
                         closeHit = temphit.getT();
@@ -202,7 +203,7 @@ public class Light {
 
     }
 
-    boolean checkShadow(Point3D hitPoint,Object[] objects, int hitObj){
+    boolean checkShadow(Point3D hitPoint, ArrayList<Object> objects, int hitObj){
 
         Vec3d hitPointDir = new Vec3d(pos.getX()-hitPoint.getX(),pos.getY()-hitPoint.getY(),pos.getZ()-hitPoint.getZ());
         double distance = hitPointDir.length();
@@ -214,10 +215,10 @@ public class Light {
         RayHit hit = new RayHit();
 
 
-        for (int obj = 0; obj < objects.length; obj++) {
+        for (int obj = 0; obj < objects.size(); obj++) {
 
             if(hitObj != obj){
-                hit = objects[obj].Hit(ray);
+                hit = objects.get(obj).Hit(ray);
             }else{
 
             }

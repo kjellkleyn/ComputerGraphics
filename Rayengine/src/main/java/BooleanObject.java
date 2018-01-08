@@ -34,17 +34,19 @@ public class BooleanObject extends Object{
         RayHit hitTwo = objectTwo.Hit(ray);
 
         if(hitOne.getIsHit() && hitTwo.getIsHit()){
-            if(hitOne.t1 < hitTwo.t1){
+
+            if(hitOne.getT() < hitTwo.getT()){
                 RayHit rayHit = new RayHit(hitOne.getHitPos().getX(),hitOne.getHitPos().getY(),hitOne.getHitPos().getZ(),hitOne.getT());
                 rayHit.setNormVec(hitOne.getNormVec());
                 rayHit.setM1(hitOne.getNormVec());
-                rayHit.setT1( hitOne.t );
+                rayHit.setT1( hitOne.getT() );
+                rayHit.setMaterial( hitOne.getMaterial() );
                 rayHit.setHitPos1( rayHit.getHitPos() );
 
                 rayHit.setM2( hitTwo.m2 );
                 rayHit.setT2( hitTwo.t2 );
                 rayHit.setHitPos2( hitTwo.hitPos2 );
-                rayHit.setMaterial( hitOne.getMaterial() );
+
 
 
                 return rayHit;
@@ -52,13 +54,14 @@ public class BooleanObject extends Object{
                 RayHit rayHit = new RayHit(hitTwo.getHitPos().getX(),hitTwo.getHitPos().getY(),hitTwo.getHitPos().getZ(),hitTwo.getT());
                 rayHit.setNormVec(hitTwo.getNormVec());
                 rayHit.setM1(hitTwo.getNormVec());
-                rayHit.setT1( hitTwo.t );
-                rayHit.setHitPos1( rayHit.getHitPos() );
+                rayHit.setT1( hitTwo.getT() );
+                rayHit.setHitPos1( rayHit.getHitPos());
+                rayHit.setMaterial( hitTwo.getMaterial() );
 
                 rayHit.setM2( hitOne.m2 );
                 rayHit.setT2( hitOne.t2 );
                 rayHit.setHitPos2( hitOne.hitPos2 );
-                rayHit.setMaterial( hitOne.getMaterial() );
+
 
 
                 return rayHit;
@@ -77,6 +80,15 @@ public class BooleanObject extends Object{
     private RayHit intersection(Ray ray){
         RayHit hitOne = objectOne.Hit(ray);
         RayHit hitTwo = objectTwo.Hit(ray);
+
+        /*
+        if(hitOne.isHit && hitTwo.isHit){
+            System.out.println("Object 1 : t1: " + hitOne.t1 + " t2 " + hitOne.t2);
+            System.out.println("Object 2 : t1: " + hitTwo.t1 + " t2 " + hitTwo.t2);
+            System.out.println();
+        }
+*/
+
 
         if( (hitOne.isHit && !hitTwo.isHit) || (!hitOne.isHit && hitTwo.isHit) )
             return new RayHit( false );
@@ -168,6 +180,8 @@ public class BooleanObject extends Object{
         RayHit hitOne = objectOne.Hit(ray);
         RayHit hitTwo = objectTwo.Hit(ray);
 
+
+
         if(hitOne.isHit && !hitTwo.isHit){
             return hitOne;
         }else if(hitOne.isHit && hitTwo.isHit){
@@ -184,15 +198,17 @@ public class BooleanObject extends Object{
                 RayHit rayHit = new RayHit( hitTwo.hitPos2.getX(),hitTwo.hitPos2.getY(),hitTwo.hitPos2.getZ(),hitTwo.t2);
                 rayHit.setNormVec( hitTwo.m2 );
                 rayHit.setMaterial( hitTwo.getMaterial() );
+
                 rayHit.setM1( rayHit.m2 );
                 rayHit.setT1( rayHit.t2 );
                 rayHit.setHitPos1( hitTwo.hitPos2 );
+
                 rayHit.setM2( hitOne.m2 );
                 rayHit.setT2( hitOne.t2 );
                 rayHit.setHitPos2( hitOne.hitPos2 );
 
                 return rayHit;
-            }else if(hitTwo.t1 > hitOne.t1 & hitTwo.t2 > hitOne.t2){ //Object twee en één raken elkaar. Object twee zit wel achter object één
+            }else if(hitTwo.t1 > hitOne.t1 && hitTwo.t2 > hitOne.t2){ //Object twee en één raken elkaar. Object twee zit wel achter object één
                 RayHit rayHit = new RayHit( hitOne.getHitPos().getX(),hitOne.getHitPos().getY(),hitOne.getHitPos().getZ(),hitOne.getT());
                 rayHit.setNormVec( hitOne.getNormVec() );
                 rayHit.setMaterial( hitOne.getMaterial() );
@@ -201,7 +217,7 @@ public class BooleanObject extends Object{
                 rayHit.setHitPos1( hitOne.hitPos1 );
                 rayHit.setM2( hitTwo.m1 );
                 rayHit.setT2( hitTwo.t1 );
-                rayHit.setHitPos2( hitTwo.hitPos2 );
+                rayHit.setHitPos2( hitTwo.hitPos1 );
 
                 return rayHit;
             }else{

@@ -46,7 +46,6 @@ public class Ray {
     void TranslateRay(TransformationMatrix3D scalingMatrix, TransformationMatrix3D translationMatrix){
 
         Matrix newStart = translationMatrix.imatrix.times(startMatrix);
-
         newStart = scalingMatrix.imatrix.times(newStart);
 
         tempStart = new Point3D(newStart.get(0,0),newStart.get(1,0),newStart.get(2,0));

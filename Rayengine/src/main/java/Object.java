@@ -11,21 +11,25 @@ public abstract class Object {
     Point3D vector;
     TransformationMatrix3D translationMatrix, scalingMatrix;
     private TransformationFactory transFact = new TransformationFactory();
-    private double size;
+    private double sizeX,sizeY,sizeZ;
     Material material;
 
     public Object(){
         this.vector = new Point3D(0,0,0);
-        this.size = 1;
+        this.sizeX = 1;
+        this.sizeY = 1;
+        this.sizeZ = 1;
     }
 
-    public Object(double x,double y,double z,double size, Material material){
+    public Object(double x,double y,double z,double sizex,double sizey,double sizez, Material material){
         this.vector = new Point3D(x,y,z);
         this.material = material;
-        this.size = size;
+        this.sizeX = sizex;
+        this.sizeY = sizey;
+        this.sizeZ = sizez;
 
         translationMatrix = TransformationFactory.getTranslationMatrix(vector.getX(),vector.getY(),vector.getZ());
-        scalingMatrix = TransformationFactory.getScalingMatrix(size,size,size);
+        scalingMatrix = TransformationFactory.getScalingMatrix(sizeX,sizeY,sizeZ);
 
     }
     abstract RayHit Hit(Ray ray);

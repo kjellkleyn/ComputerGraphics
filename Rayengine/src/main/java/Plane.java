@@ -2,6 +2,7 @@ import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by kjell on 03/11/2017.
@@ -16,7 +17,10 @@ public class Plane {
     Material material;
     double size;
 
-    Plane(int number,Material material){
+    BufferedImage image;
+
+    Plane(int number, Material material, BufferedImage img){
+        image = img;
         this.size = size;
         this.number = number;
         this.material = material;
@@ -75,6 +79,40 @@ public class Plane {
             if ((hitPoint_x <= 1 && hitPoint_x >= 0) && (hitPoint_y <= 1 && hitPoint_y >= 0)) {
 
                 RayHit rayHit = new RayHit(hitPoint_x, hitPoint_y, hitPoint_z, t);
+
+                if(image != null){
+                    int imageX = (int)(hitPoint_x * image.getWidth());
+                    int imageY = (int)(hitPoint_y * image.getHeight());
+
+                    imageX = image.getWidth() - imageX;
+                    imageY = image.getHeight() - imageY;
+
+                    if(imageX >= image.getWidth()){
+                        imageX = image.getWidth()-1;
+                    }
+                    if(imageY >= image.getHeight()){
+                        imageY = image.getHeight()-1;
+                    }
+
+                    if(imageX <= 0){
+                        imageX = 1;
+                    }
+                    if(imageY <= 0){
+                        imageY = 1;
+                    }
+
+                    try{
+                        material.color = new Color(image.getRGB( imageX,imageY));
+                    }catch (Exception e){
+                        System.out.println("X = " + imageX + " " + " Y= " + imageY);
+                        e.printStackTrace();
+                    }
+
+                    rayHit.setMaterial(material);
+                }else{
+                    rayHit.setMaterial(material);
+                }
+
                 return rayHit;
             }else{
                 return new RayHit();
@@ -82,6 +120,9 @@ public class Plane {
         } else if (number == 1 || number == 4) {
             if ((hitPoint_x <= 1 && hitPoint_x >= 0) && (hitPoint_z <= 1 && hitPoint_z >= 0)) {
                 RayHit rayHit = new RayHit(hitPoint_x, hitPoint_y, hitPoint_z, t);
+
+                material.color = material.originalColor;
+                rayHit.setMaterial(material);
                 return rayHit;
             }else{
                 return new RayHit();
@@ -90,6 +131,8 @@ public class Plane {
             if (((hitPoint_y <= 1) && (hitPoint_y >= 0)) && ((hitPoint_z <= 1) && (hitPoint_z >= 0))) {
 
                 RayHit rayHit = new RayHit(hitPoint_x,hitPoint_y,hitPoint_z,t);
+                material.color = material.originalColor;
+                rayHit.setMaterial(material);
                 return rayHit;
             }else{
                 return new RayHit();

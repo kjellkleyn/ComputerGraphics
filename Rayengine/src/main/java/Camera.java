@@ -20,7 +20,7 @@ public class Camera {
 
     public Camera(int sizex, int sizey){
         this.nearDist = 1;
-        this.viewAngle = Math.toRadians(30.00);
+        this.viewAngle = Math.toRadians(45.00);
         this.aspect = (double)sizex/(double)sizey;
 
         this.nCols = sizex;

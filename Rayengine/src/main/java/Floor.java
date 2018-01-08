@@ -5,6 +5,7 @@ import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by kjell on 6-10-2017.
@@ -14,10 +15,10 @@ public class Floor extends Object {
     Color colors[] = {Color.RED,Color.BLUE,Color.GREEN,Color.MAGENTA,Color.YELLOW,Color.black};
     Color color;
 
-    Floor(double x,double y,double z,double size , Material material){
-        super(x,y,z,size,material);
+    Floor(double x, double y, double z, double size , Material material, BufferedImage image){
+        super(x,y,z,size,size,size,material);
 
-        plane= new Plane(2,material);
+        plane= new Plane(2,material,image);
 
 
 
