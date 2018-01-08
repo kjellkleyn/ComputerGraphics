@@ -108,8 +108,8 @@ public class Sphere extends Object {
             if(t1 > 0.000000001){
 
                 if(image != null){
-                    int imageX = (int)(hitPos1X * image.getWidth());
-                    int imageY = (int)(hitPos2Y * image.getHeight());
+                    int imageX = (int)((hitPos1X + 1) * 0.5 * image.getWidth());
+                    int imageY = (int)((hitPos2Y + 1) * 0.5 * image.getHeight());
 
                     imageX = image.getWidth() - imageX;
                     imageY = image.getHeight() - imageY;
@@ -130,6 +130,7 @@ public class Sphere extends Object {
                         material.color = new Color(image.getRGB( imageX,imageY));
 
                 }else{
+                    material.color = material.originalColor;
                 }
 
                 RayHit rayHit = new RayHit(hitPos1X,hitPos1Y,hitPos1Z,t1);
@@ -174,6 +175,7 @@ public class Sphere extends Object {
 
 
                 }else{
+                    material.color = material.originalColor;
                 }
 
                 RayHit rayHit = new RayHit(hitPos2X,hitPos2Y,hitPos2Z,t2);

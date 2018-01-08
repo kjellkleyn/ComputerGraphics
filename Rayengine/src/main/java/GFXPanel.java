@@ -34,7 +34,7 @@ public class GFXPanel extends JPanel{
 
         try
         {
-            img = ImageIO.read(new File("D:\\Afbeeldingen\\antwerpen.jpg")); // eventually C:\\ImageTest\\pic2.jpg
+            img = ImageIO.read(new File("D:\\Afbeeldingen\\eye_0058_c.jpg")); // eventually C:\\ImageTest\\pic2.jpg
         }
         catch (IOException e)
         {
@@ -44,7 +44,7 @@ public class GFXPanel extends JPanel{
 
 
         Camera camera = new Camera(sizex,sizey);
-        camera.set( new Point3D( 0,3, -5 ),
+        camera.set( new Point3D( -13,5, 10 ),
                 new Point3D( -12,3, -5),
                 new Vec3d( 0 , 1, 0 ) );
         //camera.set(new Point3D(-10, 0, 0), new Point3D(0, 0, 0), new Vec3d(0,1, 0));
@@ -100,8 +100,9 @@ public class GFXPanel extends JPanel{
         //Object objects[] = {new Cube(0,0,0,20,Color.GREEN)};
 
 
-        objects.add( new Cube(new Point3D(-20, 0, -30), 60, new Material( new Color(146, 147, 143), 0.4, 0.25,0.5,0.0,0.0 ))); // ROOM
-        objects.add(new Sphere(new Point3D(-12,3, -5),2,2,2,new Material(new Color(14, 41, 192),0.4,0.25,0.0,0.0,0.0),img));
+        objects.add( new Cube(new Point3D(-20, 0, -30), 60, new Material( new Color(146, 147, 143), 0.4, 0.25,0.0,0.0,0.0 ))); // ROOM
+        //bjects.add()
+        //objects.add(new Sphere(new Point3D(-12,3, -5),2,2,2,new Material(new Color(14, 41, 192),0.4,0.25,0.05,0.0,0.0),img));
         //objects.add(new Cube(new Point3D(-12,3, -7),1,1,1,new Material(new Color(192, 45, 75),0.4,0.25,0.0,0.0,0.0)));
         /*
         BooleanObject die = new BooleanObject(new Cube(-0, 0,0, 5, new Material( new Color( 255, 255, 255 ), 0.4, 0.25, 0.5,0.0,0.0 )),
